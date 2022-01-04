@@ -50,6 +50,10 @@ public class TransactionConsume {
         
         int samount=0;
         
+        System.out.println("Accno"+validaccno);
+        System.out.println("RAccno"+validraccno);
+        System.out.println("deposit"+samount);
+        System.out.println("validamount"+validamount);
         
         String report;
         
@@ -58,21 +62,29 @@ public class TransactionConsume {
         	searchaccno=validrepo.getaccountnumber(validaccno);
         	searchraccno=validrepo.getreceiveraccountnumber(validraccno);
         	samount=validrepo.getdeposit(validaccno);
+        	  System.out.println("Accnocshbs"+searchaccno);
+              System.out.println("RAccnodasd"+searchraccno);
+              System.out.println("depositsadas"+samount);
+              System.out.println("validamountsad"+validamount);
+              
         }
         catch(Exception e) {
         	
         	System.out.println("Not Matched"+e.getMessage());
         }
-   
-        System.out.println("Accno"+searchaccno);
-        System.out.println("RAccno"+searchraccno);
-        System.out.println("deposit"+samount);
-        System.out.println("validamount"+validamount);
+
+        System.out.println("Accnsdfo"+searchaccno);
+        System.out.println("RAccnfsdfo"+searchraccno);
+        System.out.println("depossfsdit"+samount);
+        System.out.println("validamfsdfsount"+validamount);
         
+        int newbalance =samount-validamount;
+//        validrepo.updatebalance(validamount, searchaccno);
    
         if(validaccno==searchaccno && searchraccno==validraccno && samount >= validamount) {
 
         	report="valid";
+        	validrepo.updatebalance(validamount, searchaccno);
             transactionproducer(String.valueOf(searchaccno),String.valueOf(searchraccno),report,String.valueOf(validamount));
         	
         }
