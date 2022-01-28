@@ -6,24 +6,23 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import com.bank.moneytransferapp.entity.Transactions;
 
-import com.bank.moneytransferapp.entity.TransactionReport;
-
-
-public interface TransactionReportsRepository extends JpaRepository <TransactionReport, Long>{
-	@Query(value="select accountnumber from bankbalace u where u.accountnumber =:Anumber", nativeQuery=true)
+@Repository
+public interface TransactionReportsRepository extends JpaRepository<Transactions, Long> {
+	@Query(value = "select accountnumber from accountbalace u where u.accountnumber =:Anumber", nativeQuery = true)
 	Integer getaccountnumber(@Param("Anumber") int Anumber);
-	
 
-	@Query(value="select senderaccountno from addaccounts u where u.senderaccountno =:Bnumber", nativeQuery=true)
+	@Query(value = "select toaccountnumber from accounts u where u.toaccountnumber =:Bnumber", nativeQuery = true)
 	Integer getreceiveraccountnumber(@Param("Bnumber") int Bnumber);
-	
+
 	@Transactional
 	@Modifying
-	@Query(value="update bankbalace u set u.balance=balance-:newamount where u.accountnumber =:Fnumber", nativeQuery=true)
-	Integer updatebalance(@Param("newamount") int newamount,@Param("Fnumber") int Fnumber);
-	
-	@Query(value="select balance from bankbalace u where u.accountnumber =:Cnumber", nativeQuery=true)
+	@Query(value = "update accountbalace u set u.deposit=deposit-:newamount where u.accountnumber =:Fnumber", nativeQuery = true)
+	Integer updatebalance(@Param("newamount") int newamount, @Param("Fnumber") int Fnumber);
+
+	@Query(value = "select deposit from accountbalace u where u.accountnumber =:Cnumber", nativeQuery = true)
 	Integer getdeposit(@Param("Cnumber") int Cnumber);
 
 }
